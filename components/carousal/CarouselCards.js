@@ -4,6 +4,7 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import CarouselCardItem, {SLIDER_WIDTH, ITEM_WIDTH} from './CarouselCardItem';
 import useApiCall from './ApiCall';
 import {gql} from '@apollo/client';
+import {useNavigation} from '@react-navigation/native';
 
 const CRICKET_MATCHES = gql`
   query getFRCHomePage {
@@ -35,6 +36,7 @@ const CRICKET_MATCHES = gql`
 `;
 
 const CarouselCards = () => {
+  const navigation = useNavigation();
   const {error, loading, data} = useApiCall(CRICKET_MATCHES);
   const [index, setIndex] = React.useState(0);
   const isCarousel = React.useRef(null);
@@ -55,7 +57,13 @@ const CarouselCards = () => {
         <Carousel
           ref={isCarousel}
           data={data.getFRCHomePage.upcomingmatches}
-          renderItem={CarouselCardItem}
+          renderItem={({item}) => (
+            <CarouselCardItem
+              item={item}
+              index={index}
+              navigation={navigation}
+            />
+          )}
           sliderWidth={SLIDER_WIDTH}
           itemWidth={ITEM_WIDTH}
           onSnapToItem={index => {

@@ -1,6 +1,7 @@
 package com.fantasycricket;
 
 import com.facebook.react.ReactActivity;
+import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 
@@ -12,4 +13,11 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "FantasyCricket";
   }
+  /**
+  * Code for React Native Screens Library to work properly
+   */
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(null);
+}
 }
